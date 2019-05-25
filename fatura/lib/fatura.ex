@@ -1,18 +1,9 @@
 defmodule Fatura do
-  @moduledoc """
-  Documentation for Fatura.
-  """
+  def criar_fatura do
+    ["Telefone", "Luz", "Agua"]
+  end
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Fatura.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def ordena_fatura(faturas) do
+    Enum.sort(faturas)
   end
 end
