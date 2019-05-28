@@ -7,16 +7,62 @@ defmodule Fatura do
   @doc """
     Ao receber uma `fatura` retorna um array de faturas
       ## Exemplos
-      iex> Fatura.criar_fatura(["Telefone", "Agua", "Luz"])
-      ["Telefone", "Agua", "Luz"]
+      iex> Fatura.criar_fatura(["Telefone", "Agua", "Luz"], [5, 10])
+      ["Fatura: Telefone vence no dia: 5", "Fatura: Agua vence no dia: 5",
+             "Fatura: Luz vence no dia: 5", "Fatura: Telefone vence no dia: 10",
+             "Fatura: Agua vence no dia: 10", "Fatura: Luz vence no dia: 10"]
   """
-  def criar_fatura(fatura) do
-    fatura
-  end
+  def criar_fatura(faturas, vencimentos) do
+    for vencimento <- vencimentos, fatura <- faturas do
+        "Fatura: #{fatura} vence no dia: #{vencimento}"
+    end
+ end
+
+  @doc """
+    Ao receber uma `fatura` e uma quantidade retorna um array de faturas apagar
+      ## Exemplos
+      iex> Fatura.faturas_a_pagar(Fatura.criar_fatura(["Telefone", "Agua", "Luz"], [5, 10]), 1)
+      {["Fatura: Telefone vence no dia: 5"],
+       ["Fatura: Agua vence no dia: 5", "Fatura: Luz vence no dia: 5",
+        "Fatura: Telefone vence no dia: 10", "Fatura: Agua vence no dia: 10",
+        "Fatura: Luz vence no dia: 10"]}
+  """
+ def faturas_a_pagar(faturas, quantidade) do
+  Enum.split(faturas, quantidade)
+ end
+
+  @doc """
+    Salva faturas em um arquivo
+      ## Exemplos
+      iex> Fatura.save("Teste", Fatura.criar_fatura(["Telefone", "Agua", "Luz"], [5, 10]))
+      :ok
+  """
+ def save(nome_arquivo, faturas) do
+   binary = :erlang.term_to_binary(faturas)
+   File.write(nome_arquivo, binary)
+ end
+
 @doc """
   Ao receber `faturas` ordena as mesmas
+    ## Exemplos
+    iex> Fatura.ordena_fatura(Fatura.criar_fatura(["Telefone", "Agua", "Luz"], [5, 10]))
+    ["Fatura: Agua vence no dia: 10", "Fatura: Agua vence no dia: 5",
+     "Fatura: Luz vence no dia: 10", "Fatura: Luz vence no dia: 5",
+     "Fatura: Telefone vence no dia: 10", "Fatura: Telefone vence no dia: 5"]
 """
-  def ordena_fatura(faturas) do
-    Enum.sort(faturas)
-  end
+def ordena_fatura(faturas) do
+  Enum.sort(faturas)
+end
+
+@doc """
+   Ao receber `faturas` verifica se uma `fatura` existe dentro do Array
+    ## Exemplos
+    iex> Fatura.fatura_existe?(Fatura.criar_fatura(["Telefone", "Agua", "Luz"], [5, 10]), "Fatura: Agua vence no dia: 10")
+    true
+"""
+def fatura_existe?(faturas, fatura) do
+   Enum.member?(faturas, fatura)
+end
+
+
 end
