@@ -32,8 +32,24 @@ defmodule Fatura do
  end
 
   @doc """
+    Ao receber uma `fatura`, um vencimento e uma quantidade retorna um array de faturas pagas
+      ## Exemplos
+      iex(19)> Fatura.pagar_fatura(["Telefone", "Agua", "Luz"], [5, 10], 1)
+      {["Fatura: Agua vence no dia: 10"],
+      ["Fatura: Agua vence no dia: 5", "Fatura: Luz vence no dia: 10",
+        "Fatura: Luz vence no dia: 5", "Fatura: Telefone vence no dia: 10",
+        "Fatura: Telefone vence no dia: 5"]}
+  """
+ def pagar_fatura(faturas, vencimento, quantidade) do
+   criar_fatura(faturas, vencimento)
+   |> ordena_fatura()
+   |> faturas_a_pagar(quantidade)
+ end
+
+  @doc """
     Salva faturas em um arquivo
       ## Exemplos
+
       iex> Fatura.save("Teste", Fatura.criar_fatura(["Telefone", "Agua", "Luz"], [5, 10]))
       :ok
   """
@@ -41,6 +57,24 @@ defmodule Fatura do
    binary = :erlang.term_to_binary(faturas)
    File.write(nome_arquivo, binary)
  end
+
+  @doc """
+    Salva faturas em um arquivo
+      ## Exemplos
+
+      iex(9)> Fatura.load("Teste")
+      ["Fatura: Telefone vence no dia: 5", "Fatura: Agua vence no dia: 5",
+      "Fatura: Luz vence no dia: 5", "Fatura: Telefone vence no dia: 10",
+      "Fatura: Agua vence no dia: 10", "Fatura: Luz vence no dia: 10"]
+  """
+ def load(nome_arquivo) do
+  case File.read(nome_arquivo) do
+   {:ok, binario}  ->  :erlang.binary_to_term(binario)
+   {:error, _erro} -> "Nao foi possivel carregar o arquivo"
+  end
+
+ end
+
 
 @doc """
   Ao receber `faturas` ordena as mesmas
