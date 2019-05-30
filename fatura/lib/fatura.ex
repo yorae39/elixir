@@ -75,7 +75,6 @@ defmodule Fatura do
 
  end
 
-
 @doc """
   Ao receber `faturas` ordena as mesmas
     ## Exemplos
