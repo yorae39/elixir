@@ -9,6 +9,20 @@ defmodule IconeIdentidade do
    |> criar_cor
    |> criar_tabela
    |> remover_impar
+   |> constroi_pixel
+   |> desenhar
+   |> salvar(entrada)
+ end
+
+
+ def desenhar(%IconeIdentidade.Imagem{color: color, pixel_map: pixel_map}) do
+   imagem = :egd.create(250, 250)
+   preencha = :egd.color(color)
+
+   Enum.each pixel_map, fn {start, stop} ->
+    :egd.filledRectangle(imagem,start, stop, preencha)
+   end
+   :egd.render(imagem)
  end
 
 
@@ -16,6 +30,17 @@ defmodule IconeIdentidade do
    %IconeIdentidade.Imagem{imagem | color: {r, g, b}}
  end
 
+
+ def constroi_pixel(%IconeIdentidade.Imagem{grid: grid} = imagem) do
+   pixel_map = Enum.map grid, fn {_valor, indice} ->
+    h = rem(indice, 5) * 50
+    v = div(indice, 5) * 50
+    t_esquerda = {h, v}
+    i_direita = {h+50, v+50}
+    {t_esquerda, i_direita}
+   end
+   %IconeIdentidade.Imagem{imagem | pixel_map: pixel_map}
+ end
 
  def criar_tabela(%IconeIdentidade.Imagem{hex: hex} = imagem) do
    grid =  hex
@@ -44,6 +69,11 @@ def hash_input(entrada) do
   |> :binary.bin_to_list
   %IconeIdentidade.Imagem{hex: hex}
 end
+
+def salvar(imagem, entrada) do
+  File.write("#{entrada}.png", imagem)
+end
+
 
 
 end
