@@ -21,6 +21,7 @@ defmodule TodoAppWeb.Router do
     get "/", TarefaController, :index
     get "/:id/edit", TarefaController, :edit
     put "/:id", TarefaController, :update
+    delete "/:id", TarefaController, :delete
 
   end
 
