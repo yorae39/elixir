@@ -16,6 +16,8 @@ defmodule TodoAppWeb.Router do
   scope "/", TodoAppWeb do
     pipe_through :browser
 
+    get "/tarefa/new", TarefaController, :new
+    post "/tarefas", TarefaController, :create
     get "/", PageController, :index
   end
 
