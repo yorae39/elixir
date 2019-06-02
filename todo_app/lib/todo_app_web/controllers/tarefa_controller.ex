@@ -1,8 +1,7 @@
 defmodule TodoAppWeb.TarefaController do
   use TodoAppWeb, :controller
 
-
-  alias TodoApp.Tarefa
+  alias TodoApp.{Tarefa, Repo}
 
   def new(conn, _params) do
     IO.inspect conn
@@ -12,7 +11,18 @@ defmodule TodoAppWeb.TarefaController do
   end
 
   def create(conn, %{"tarefa" => tarefa}) do
-    render conn, "tarefas.html", tarefa: tarefa
+    changeset = Tarefa.changeset(%Tarefa{}, tarefa)
+    case Repo.insert changeset do
+      {:ok, struct} ->
+        conn
+        |> put_flash(:info, "Tarefa inserida com sucesso na lista: #{struct.titulo}")
+        |> render("index.html", tarefa)
+      {:error, changeset} ->  render conn, "new.html", changeset: changeset
+    end
+  end
+
+  def index(conn, params) do
+    render conn, "index.html"
   end
 
 end
