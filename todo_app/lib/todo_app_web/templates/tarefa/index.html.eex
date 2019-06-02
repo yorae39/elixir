@@ -1,1 +1,8 @@
-Lista de tarefas
+<h1>Lista de Tarefas</h1>
+<br/>
+<ul class="collection">
+<%= for tarefa <- @tarefas do %>
+   <li class="collection-item"> <%= gettext "Tarefa: %{tarefa} - Status: %{pronta}", 
+      tarefa: tarefa.titulo, pronta: tarefa.pronta %> </li>
+<% end %>
+</ul>

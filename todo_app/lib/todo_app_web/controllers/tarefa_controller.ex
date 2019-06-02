@@ -16,13 +16,13 @@ defmodule TodoAppWeb.TarefaController do
       {:ok, struct} ->
         conn
         |> put_flash(:info, "Tarefa inserida com sucesso na lista: #{struct.titulo}")
-        |> render("index.html", tarefa)
+        |> redirect(to: Routes.tarefa_path(conn, :index))
       {:error, changeset} ->  render conn, "new.html", changeset: changeset
     end
   end
 
-  def index(conn, params) do
-    render conn, "index.html"
+  def index(conn, _params) do
+    render conn, "index.html", tarefas: Repo.all(Tarefa)
   end
 
 end
