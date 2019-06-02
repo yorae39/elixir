@@ -19,6 +19,9 @@ defmodule TodoAppWeb.Router do
     get "/new", TarefaController, :new
     post "/", TarefaController, :create
     get "/", TarefaController, :index
+    get "/:id/edit", TarefaController, :edit
+    put "/:id", TarefaController, :update
+
   end
 
   # Other scopes may use custom stacks.

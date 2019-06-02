@@ -2,7 +2,11 @@
 <br/>
 <ul class="collection">
 <%= for tarefa <- @tarefas do %>
-   <li class="collection-item"> <%= gettext "Tarefa: %{tarefa} - Status: %{pronta}", 
-      tarefa: tarefa.titulo, pronta: tarefa.pronta %> </li>
+   <li class="collection-item">
+    <%= gettext "Tarefa: %{tarefa} - Status: %{pronta}", tarefa: tarefa.titulo, pronta: tarefa.pronta %> 
+    <%= link  to: Routes.tarefa_path(@conn, :edit, tarefa), class: "secondary-content" do %>
+       <i class="material-icons">edit</i>
+    <% end %>
+  </li>
 <% end %>
 </ul>
