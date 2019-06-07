@@ -16,7 +16,13 @@ defmodule TodoAppWeb.Router do
   scope "/", TodoAppWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/new", TarefaController, :new
+    post "/", TarefaController, :create
+    get "/", TarefaController, :index
+    get "/:id/edit", TarefaController, :edit
+    put "/:id", TarefaController, :update
+    delete "/:id", TarefaController, :delete
+
   end
 
   # Other scopes may use custom stacks.
