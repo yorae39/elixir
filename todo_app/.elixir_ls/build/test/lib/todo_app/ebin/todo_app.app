@@ -17,6 +17,8 @@
                         'Elixir.TodoAppWeb.Gettext',
                         'Elixir.TodoAppWeb.LayoutView',
                         'Elixir.TodoAppWeb.PageView',
+                        'Elixir.TodoAppWeb.Plug.RequireAuth',
+                        'Elixir.TodoAppWeb.Plug.SetUser',
                         'Elixir.TodoAppWeb.Router',
                         'Elixir.TodoAppWeb.Router.Helpers',
                         'Elixir.TodoAppWeb.TarefaController',

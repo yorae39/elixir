@@ -1,8 +1,11 @@
+<%= if @conn.assigns[:user] do %>
 <h1>Lista de Tarefas</h1>
 <br/>
 <ul class="collection">
 <%= for tarefa <- @tarefas do %>
+   <%= if @conn.assigns.user.id == tarefa.usuario_id do   %>
    <li class="collection-item">
+   
     <%= gettext "Tarefa: %{tarefa} - Status: %{pronta}", tarefa: tarefa.titulo, pronta: tarefa.pronta %> 
 
    <div class="secondary-content">
@@ -15,6 +18,7 @@
     </div>
 
   </li>
+  <% end %>
 <% end %>
 </ul>
 
@@ -24,3 +28,8 @@
       <i class="material-icons">add</i>
     <% end %>
 </div>
+
+<% else %>
+  <h3>É necessário logar para criar tarefas!</h3>
+
+<% end %>
