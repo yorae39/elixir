@@ -27,12 +27,24 @@ config :phoenix, :json_library, Jason
 
 config :ueberauth, Ueberauth,
   providers: [
+    facebook: {Ueberauth.Strategy.Facebook, [profile_fields: "name,email,first_name,last_name",   display: "popup"]}
+  ]
+
+  config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+  client_id: "209541063235511",
+  client_secret: "293c1df97eda2b9b0fe661a762bf716f"
+
+"""
+config :ueberauth, Ueberauth,
+  providers: [
     github: {Ueberauth.Strategy.Github, [default_scope: "user,public_repo,notifications"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 client_id: "47fad8f3115098cff57b",
 client_secret: "0c18c31f46ab5318730a61dc3ddd294436d14df7"
+"""
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

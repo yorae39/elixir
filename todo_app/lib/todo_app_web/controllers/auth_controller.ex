@@ -4,7 +4,7 @@ defmodule TodoAppWeb.AuthController do
   plug Ueberauth
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"provider" => provider}) do
-   usuario = %{nome: auth.info.nickname, email: auth.info.email, token: auth.credentials.token, provider: provider}
+   usuario = %{nome: auth.info.name, email: auth.info.email, token: auth.credentials.token, provider: provider}
    changeset = Usuario.changeset(%Usuario{}, usuario)
     logar conn, changeset
   end

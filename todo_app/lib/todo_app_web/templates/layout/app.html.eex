@@ -21,11 +21,11 @@
              <%= gettext "Bem vindo: %{nome} | ", nome: @conn.assigns.user.nome %>
           </li>
           <li>
-            <%= link "Logout", to: Routes.auth_path(@conn, :logout, "github") %>
+            <%= link "Logout", to: Routes.auth_path(@conn, :logout, "facebook") %>
           </li>
           <%= else %>
           <li>
-            <%= link "Login", to: Routes.auth_path(@conn, :request, "github") %>
+            <%= link "Login", to: Routes.auth_path(@conn, :request, "facebook") %>
           </li>
           <% end %>
           </ul>
