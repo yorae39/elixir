@@ -34,6 +34,7 @@ config :ueberauth, Ueberauth,
   client_id: "secret",
   client_secret: "secret"
 
+
 """
 config :ueberauth, Ueberauth,
   providers: [
