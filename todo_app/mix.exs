@@ -20,7 +20,7 @@ defmodule TodoApp.MixProject do
   def application do
     [
       mod: {TodoApp.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ueberauth_github]
+      extra_applications: [:logger, :runtime_tools,  :ueberauth_facebook]
     ]
   end
 
@@ -44,6 +44,7 @@ defmodule TodoApp.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:ueberauth_github, "~> 0.7"},
+      {:ueberauth_facebook, "~> 0.8"},
       {:poison, "~> 3.1"}
 
     ]
